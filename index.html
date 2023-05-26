@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Square Number Quiz</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+    </head>
+    <body class="w3-padding">
+        <div class="w3-center w3-deep-purple w3-padding">
+            <h1>Square Number Quiz</h1>
+            <h2>By Amy King</h2>
+        </div>
+        <br>
+        <div class="w3-center w3-deep-purple w3-padding">
+            <h3 id="statusbar">Hit generate to start!</h1>
+        </div>
+        <br>
+        <div class="w3-row-padding">
+            <div class="w3-third w3-center">
+                <input type="number" id="answer" placeholder="Enter the root!" class="w3-margin" >
+                <br>
+            </div>
+            <div class="w3-third w3-center">
+                <button onclick="generate()" class="w3-button w3-deep-purple w3-margin" width="50%">GENERATE</button>
+                <br>
+            </div>
+            <div class="w3-third w3-center">
+                <button onclick="getAnswer()" class="w3-button w3-deep-purple w3-margin " width="50%">ANSWER</button>
+                <br>
+            </div>
+        </div>
+
+        <script>
+            var squareRoot;
+            var squareNumber;
+            var answer;
+
+            document.getElementById('answer').onkeydown = function(event) {
+                if (event.keyCode == 13) {
+                    getAnswer();
+                }
+            }
+
+            function sleep (time) {
+                return new Promise((resolve) => setTimeout(resolve, time));
+            }
+
+            function generate() {
+                squareRoot = Math.floor(Math.random() * 400) + 100;
+                squareNumber = squareRoot * squareRoot;
+                document.getElementById("statusbar").innerHTML = squareNumber;
+            }
+
+            function getAnswer() {
+                answer = document.getElementById('answer').value;
+                if (answer == null || answer == "") {
+                    document.getElementById("statusbar").innerHTML = "You should enter a number";
+                    sleep(2000).then(() => {
+                        document.getElementById("statusbar").innerHTML = squareNumber;
+                    });
+
+                } else if (answer == squareRoot) {
+                    document.getElementById("statusbar").innerHTML = "You got it right! Hit generate to get a new number";
+                } else {
+                    document.getElementById("statusbar").innerHTML = "You didn't get it right this time, try again";
+                    sleep(2000).then(() => {
+                        document.getElementById("statusbar").innerHTML = squareNumber;
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>
